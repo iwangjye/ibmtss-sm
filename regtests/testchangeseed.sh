@@ -54,7 +54,7 @@ ${PREFIX}changepps > run.out
 checkSuccess $?
 
 echo "Set platform hierarchy auth"
-${PREFIX}hierarchychangeauth -hi p -pwdn ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwdn ppp > run.out
 checkSuccess $?
 
 echo "Change PPS, bad password"
@@ -66,11 +66,11 @@ ${PREFIX}changepps -pwda ppp > run.out
 checkSuccess $?
 
 echo "Clear platform hierarchy auth"
-${PREFIX}hierarchychangeauth -hi p -pwda ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwda ppp > run.out
 checkSuccess $?
 
 echo "Create a primary key - platform hierarchy"
-${PREFIX}createprimary -hi p -pwdk 111 > run.out
+${PREFIX}createprimary -hi o -pwdk 111 > run.out
 checkSuccess $?
 
 echo "Create a storage key under the primary key"
@@ -90,7 +90,7 @@ ${PREFIX}load -hp 80000000 -ipr tmppriv.bin -ipu tmppub.bin -pwdp 111 > run.out
 checkFailure $?
 
 echo "Create a different primary key - new PPS"
-${PREFIX}createprimary -hi p -pwdk 111 > run.out
+${PREFIX}createprimary -hi o -pwdk 111 > run.out
 checkSuccess $?
 
 echo "Load the storage key under the new primary key, should fail"

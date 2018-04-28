@@ -141,7 +141,7 @@ for HALG in sha1 sha256 sha384
 do
     
     echo "Create a primary storage key - $HALG"
-    ${PREFIX}createprimary -nalg $HALG -hi p > run.out
+    ${PREFIX}createprimary -nalg $HALG -hi o > run.out
     checkSuccess $?
 
     echo "Start a salted HMAC auth session"
@@ -166,7 +166,7 @@ for HALG in sha1 sha256 sha384
 do
     
     echo "Create a primary RSA key - $HALG"
-    ${PREFIX}createprimary -nalg $HALG -halg $HALG -hi p -deo > run.out
+    ${PREFIX}createprimary -nalg $HALG -halg $HALG -hi o -deo > run.out
     checkSuccess $?
 
     echo "Start a salted HMAC auth session"
@@ -196,7 +196,7 @@ ${PREFIX}load -hp 80000000 -ipr storepriv.bin -ipu storepub.bin -pwdp pps > run.
 checkSuccess $?
 
 echo "Make the storage key persistent"
-${PREFIX}evictcontrol -ho 80000001 -hp 81800000 -hi p > run.out
+${PREFIX}evictcontrol -ho 80000001 -hp 81800000 -hi o > run.out
 checkSuccess $?
 
 echo "Start a salted HMAC auth session"
@@ -212,7 +212,7 @@ ${PREFIX}flushcontext -ha 80000001 > run.out
 checkSuccess $?
 
 echo "Flush the storage key from persistent memory"
-${PREFIX}evictcontrol -ho 81800000 -hp 81800000 -hi p > run.out
+${PREFIX}evictcontrol -ho 81800000 -hp 81800000 -hi o > run.out
 checkSuccess $?
 
 echo ""
@@ -268,7 +268,7 @@ ${PREFIX}readpublic -ho 80000001 -se0 02000000 81 > run.out
 checkSuccess $?
 
 echo "NV define space"
-${PREFIX}nvdefinespace -ha 01000000 -hi p > run.out
+${PREFIX}nvdefinespace -ha 01000000 -hi o > run.out
 checkSuccess $?
 
 echo "NV Read public with salted audit session"
@@ -284,7 +284,7 @@ ${PREFIX}flushcontext -ha 02000000 > run.out
 checkSuccess $?
 
 echo "NV undefine space"
-${PREFIX}nvundefinespace -ha 01000000 -hi p > run.out
+${PREFIX}nvundefinespace -ha 01000000 -hi o > run.out
 checkSuccess $?
 
 rm -f tmpkeypairrsa.pem

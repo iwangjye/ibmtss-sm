@@ -93,7 +93,7 @@ echo ""
 # 000001514000000C plus newline for policyRef
 
 echo "Change platform hierarchy auth"
-${PREFIX}hierarchychangeauth -hi p -pwdn ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwdn ppp > run.out
 checkSuccess $?
 
 echo "Create a sealed data object with policysecret platform auth under primary key"
@@ -125,7 +125,7 @@ diff msg.bin tmp.bin > run.out
 checkSuccess $?
 
 echo "Change platform hierarchy auth back to null"
-${PREFIX}hierarchychangeauth -hi p -pwda ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwda ppp > run.out
 checkSuccess $?
 
 echo "Flush the sealed object"

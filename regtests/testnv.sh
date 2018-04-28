@@ -322,11 +322,11 @@ for SESS in "" "-se0 02000000 1"
 do
 
     echo "Set platform auth ${SESS}"
-    ${PREFIX}hierarchychangeauth -hi p -pwdn ppp  ${SESS}> run.out
+    ${PREFIX}hierarchychangeauth -hi o -pwdn ppp  ${SESS}> run.out
     checkSuccess $?
 
     echo "Define an NV index with platform auth ${SESS}"
-    ${PREFIX}nvdefinespace -hi p -hia p -ha 01000000 -pwdp ppp ${SESS} > run.out
+    ${PREFIX}nvdefinespace -hi o -hia p -ha 01000000 -pwdp ppp ${SESS} > run.out
     checkSuccess $?
 
     echo "NV Read public, get Name, not written"
@@ -350,11 +350,11 @@ do
     checkSuccess $?
 
     echo "NV Undefine authorizing index ${SESS}"
-    ${PREFIX}nvundefinespace -hi p -ha 01000000 -pwdp ppp ${SESS} > run.out
+    ${PREFIX}nvundefinespace -hi o -ha 01000000 -pwdp ppp ${SESS} > run.out
     checkSuccess $?
 
     echo "Clear platform auth ${SESS}"
-    ${PREFIX}hierarchychangeauth -hi p -pwda ppp ${SESS} > run.out
+    ${PREFIX}hierarchychangeauth -hi o -pwda ppp ${SESS} > run.out
     checkSuccess $?
 
 done
@@ -403,7 +403,7 @@ do
     checkSuccess $?
 
     echo "NV Undefine Space"
-    ${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
+    ${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
     checkSuccess $?
 
 done
@@ -452,7 +452,7 @@ do
     checkFailure $?
 
     echo "NV Undefine Space"
-    ${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
+    ${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
     checkSuccess $?
 
 done
@@ -517,11 +517,11 @@ do
     checkSuccess $?
 
     echo "NV Undefine Space 01000000"
-    ${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
+    ${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
     checkSuccess $?
 
     echo "NV Undefine Space 01000001"
-    ${PREFIX}nvundefinespace -hi p -ha 01000001 > run.out
+    ${PREFIX}nvundefinespace -hi o -ha 01000001 > run.out
     checkSuccess $?
 
 done
@@ -598,7 +598,7 @@ do
     checkSuccess $?
 
     echo "NV Undefine Space"
-    ${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
+    ${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
     checkSuccess $?
 
     echo "Flush the auth session"
@@ -640,7 +640,7 @@ ${PREFIX}nvchangeauth -ha 01000000 -pwdo nnn -pwdn xxx -se0 03000001 1 > run.out
 checkSuccess $?
 
 echo "NV Undefine Space"
-${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
+${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
 checkSuccess $?
 
 echo "Flush the auth session"
@@ -665,7 +665,7 @@ for POL in "policyauthvalue" "policypassword"
 do
 
     echo "NV Define Space 0100000"
-    ${PREFIX}nvdefinespace -hi p -ha 01000000 -pwdn nnn -sz 16 +at pold -pol policies/policyccundefinespacespecial-auth.bin > run.out
+    ${PREFIX}nvdefinespace -hi o -ha 01000000 -pwdn nnn -sz 16 +at pold -pol policies/policyccundefinespacespecial-auth.bin > run.out
     checkSuccess $?
 
     echo "Undefine space special - should fail"

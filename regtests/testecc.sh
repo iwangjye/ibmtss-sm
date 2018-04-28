@@ -124,7 +124,7 @@ do
         cat efile.bin p1.bin tmprpub.bin > hashinput.bin
 
         echo "Hash the E, P1, and Q to create the ticket to use in signing"
-        ${PREFIX}hash -hi p -halg sha256 -if hashinput.bin -oh outhash.bin -tk tfile.bin > run.out
+        ${PREFIX}hash -hi o -halg sha256 -if hashinput.bin -oh outhash.bin -tk tfile.bin > run.out
         checkSuccess $?
         
         echo "Sign the hash of the points made from commit"
@@ -182,7 +182,7 @@ do
         cat efile.bin p1.bin tmprpub.bin > hashinput.bin
 
         echo "Hash the E, P1, and Q to create the ticket to use in signing"
-        ${PREFIX}hash -hi p -halg sha256 -if hashinput.bin -oh outhash.bin -tk tfile.bin > run.out
+        ${PREFIX}hash -hi o -halg sha256 -if hashinput.bin -oh outhash.bin -tk tfile.bin > run.out
         checkSuccess $?
 
         echo "Check error case bad counter"

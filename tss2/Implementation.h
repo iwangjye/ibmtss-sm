@@ -120,8 +120,8 @@
 #define  ALG_SHA3_256          ALG_NO
 #define  ALG_SHA3_384          ALG_NO
 #define  ALG_SHA3_512          ALG_NO
-#define  ALG_SM3_256           ALG_NO
-#define  ALG_SM4               ALG_NO
+#define  ALG_SM3_256           ALG_YES
+#define  ALG_SM4               ALG_YES
 #define  ALG_RSASSA            (ALG_YES*ALG_RSA)
 #define  ALG_RSAES             (ALG_YES*ALG_RSA)
 #define  ALG_RSAPSS            (ALG_YES*ALG_RSA)

@@ -102,7 +102,7 @@ echo "Bind session to Hierarchy"
 echo ""
 
 echo "Change platform hierarchy auth"
-${PREFIX}hierarchychangeauth -hi p -pwdn ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwdn ppp > run.out
 checkSuccess $?
 
 echo "Bind session bound to platform hierarchy"
@@ -126,7 +126,7 @@ ${PREFIX}create -hp 80000000 -st -kt f -kt p -pwdp pps -pwdk 222 -se0 02000000 0
 checkFailure $?
 
 echo "Change platform hierarchy auth back to null"
-${PREFIX}hierarchychangeauth -hi p -pwda ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwda ppp > run.out
 checkSuccess $?
 
 echo "Flush the session"

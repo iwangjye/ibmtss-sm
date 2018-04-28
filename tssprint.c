@@ -696,6 +696,11 @@ void TSS_TPMI_ALG_PUBLIC_Print(TPMI_ALG_PUBLIC source, unsigned int indent)
 	printf("%*s" "TPMI_ALG_PUBLIC: TPM_ALG_ECC\n", indent, "");
 	break;
 #endif
+#ifdef TPM_ALG_SM2
+      case TPM_ALG_SM2:
+  printf("%*s" "TPMI_ALG_PUBLIC: TPM_ALG_SM2\n", indent, "");
+  break;
+#endif
 #ifdef TPM_ALG_SYMCIPHER
       case TPM_ALG_SYMCIPHER:
 	printf("%*s" "TPMI_ALG_PUBLIC: TPM_ALG_SYMCIPHER\n", indent, "");
@@ -742,6 +747,16 @@ void TSS_TPMU_PUBLIC_ID_Print(TPMU_PUBLIC_ID *source, TPMI_ALG_PUBLIC selector, 
 		      source->ecc.y.b.buffer,
 		      source->ecc.y.b.size);
 	break;
+#endif
+#ifdef TPM_ALG_SM2
+      case TPM_ALG_SM2:
+  TSS_PrintAlli("TPM_ALG_SM2 x", indent,
+          source->ecc.x.b.buffer,
+          source->ecc.x.b.size);
+  TSS_PrintAlli("TPM_ALG_SM2 y", indent,
+          source->ecc.y.b.buffer,
+          source->ecc.y.b.size);
+  break;
 #endif
       default:
 	printf("%*s" "TPMU_PUBLIC_ID_Print: selection %04hx not implemented\n", indent, "", selector);
@@ -800,6 +815,11 @@ void TSS_TPMU_PUBLIC_PARMS_Print(TPMU_PUBLIC_PARMS *source, uint32_t selector, u
       case TPM_ALG_ECC:
 	TSS_TPMS_ECC_PARMS_Print(&source->eccDetail, indent+2);
 	break;
+#endif
+#ifdef TPM_ALG_SM2
+      case TPM_ALG_SM2:
+  TSS_TPMS_ECC_PARMS_Print(&source->eccDetail, indent+2);
+  break;
 #endif
       default:
 	printf("%*s" "TPMU_PUBLIC_PARMS : selector %04x not implemented\n", indent, "", selector);

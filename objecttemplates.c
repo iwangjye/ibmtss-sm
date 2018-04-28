@@ -327,6 +327,67 @@ TPM_RC symmetricCipherTemplate(TPMT_PUBLIC *publicArea,		/* output */
     return rc;
 }
 
+
+// 180309
+/* symmetricCipherTemplate() is a template for an AES 128 CFB key
+
+ */
+
+TPM_RC symmetricCipherTemplateSM4(TPMT_PUBLIC *publicArea,		/* output */
+			       TPMA_OBJECT addObjectAttributes,	/* add default, can be overridden
+								   here */
+			       TPMA_OBJECT deleteObjectAttributes,
+			       TPMI_ALG_HASH nalg,		/* Name algorithm */
+			       int rev116,		/* TPM rev 116 compatibility, sets SIGN */
+			       const char *policyFilename)	/* binary policy, NULL means empty */
+{
+    TPM_RC rc = 0;
+    
+    if (rc == 0) {
+	publicArea->objectAttributes = addObjectAttributes;
+
+	/* Table 185 - TPM2B_PUBLIC inPublic */
+	/* Table 184 - TPMT_PUBLIC publicArea */
+	publicArea->type = TPM_ALG_SYMCIPHER;
+	publicArea->nameAlg = nalg;
+	/* Table 32 - TPMA_OBJECT objectAttributes */
+	/* rev 116 used DECRYPT for both decrypt and encrypt.  After 116, encrypt required SIGN */
+	if (!rev116) {
+	    /* actually encrypt */
+	    publicArea->objectAttributes.val |= TPMA_OBJECT_SIGN;
+	}
+	publicArea->objectAttributes.val |= TPMA_OBJECT_DECRYPT;
+	publicArea->objectAttributes.val &= ~TPMA_OBJECT_RESTRICTED;
+	publicArea->objectAttributes.val |= TPMA_OBJECT_SENSITIVEDATAORIGIN;
+	publicArea->objectAttributes.val |= TPMA_OBJECT_USERWITHAUTH;
+	publicArea->objectAttributes.val &= ~TPMA_OBJECT_ADMINWITHPOLICY;
+	publicArea->objectAttributes.val &= ~deleteObjectAttributes.val;
+	/* Table 72 -  TPM2B_DIGEST authPolicy */
+	/* policy set separately */
+	/* Table 182 - Definition of TPMU_PUBLIC_PARMS parameters */
+	{
+	    /* Table 131 - Definition of TPMS_SYMCIPHER_PARMS symDetail */
+	    {
+		/* Table 129 - Definition of TPMT_SYM_DEF_OBJECT sym */
+		/* Table 62 - Definition of (TPM_ALG_ID) TPMI_ALG_SYM_OBJECT Type */
+		publicArea->parameters.symDetail.sym.algorithm = TPM_ALG_SM4;
+		/* Table 125 - Definition of TPMU_SYM_KEY_BITS Union */
+		publicArea->parameters.symDetail.sym.keyBits.sm4 = 128;
+		/* Table 126 - Definition of TPMU_SYM_MODE Union */
+		publicArea->parameters.symDetail.sym.mode.sm4 = TPM_ALG_CFB;
+	    }
+	}
+	/* Table 177 - TPMU_PUBLIC_ID unique */
+	/* Table 72 - Definition of TPM2B_DIGEST Structure */
+	publicArea->unique.sym.t.size = 0; 
+    }
+    if (rc == 0) {
+	rc = getPolicy(publicArea, policyFilename);
+    }
+    return rc;
+}
+
+
 /* keyedHashPublicTemplate() is a template for a HMAC key
 
    The key is not restricted

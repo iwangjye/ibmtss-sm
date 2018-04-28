@@ -127,6 +127,10 @@ int main(int argc, char *argv[])
 	    keyType = TYPE_DES;
 	    keyTypeSpecified++;
 	}
+	else if (strcmp(argv[i], "-sm4") == 0) {
+	    keyType = TYPE_SM4;
+	    keyTypeSpecified++;
+	}
 	else if (strcmp(argv[i], "-st") == 0) {
 	    keyType = TYPE_ST;
 	    keyTypeSpecified++;
@@ -178,6 +182,9 @@ int main(int argc, char *argv[])
 		else if (strcmp(argv[i],"nistp384") == 0) {
 		    curveID = TPM_ECC_NIST_P384;
 		}
+		else if (strcmp(argv[i],"sm2p256") == 0) {
+		    curveID = TPM_ECC_SM2_P256;
+		}
 		else {
 		    printf("Bad parameter %s for -ecc\n", argv[i]);
 		    printUsage();
@@ -227,6 +234,9 @@ int main(int argc, char *argv[])
 		}
 		else if (strcmp(argv[i],"sha256") == 0) {
 		    halg = TPM_ALG_SHA256;
+		}		
+		else if (strcmp(argv[i],"sm3") == 0) {
+		    halg = TPM_ALG_SM3_256;
 		}
 		else if (strcmp(argv[i],"sha384") == 0) {
 		    halg = TPM_ALG_SHA384;
@@ -249,6 +259,9 @@ int main(int argc, char *argv[])
 		}
 		else if (strcmp(argv[i],"sha256") == 0) {
 		    nalg = TPM_ALG_SHA256;
+		}
+		else if (strcmp(argv[i],"sm3") == 0) {
+		    halg = TPM_ALG_SM3_256;
 		}
 		else if (strcmp(argv[i],"sha384") == 0) {
 		    nalg = TPM_ALG_SHA384;
@@ -464,6 +477,7 @@ int main(int argc, char *argv[])
 	    printUsage();
 	}
       case TYPE_DES:
+      case TYPE_SM4:
       case TYPE_KH:
       case TYPE_DP:
 	/* inSensitive optional for symmetric keys */
@@ -519,6 +533,12 @@ int main(int argc, char *argv[])
 	    break;
 	  case TYPE_DES:
 	    rc = symmetricCipherTemplate(&in.inPublic.publicArea,
+					 addObjectAttributes, deleteObjectAttributes,
+					 nalg, rev116,
+					 policyFilename);
+	    break;
+	  case TYPE_SM4:
+	    rc = symmetricCipherTemplateSM4(&in.inPublic.publicArea,
 					 addObjectAttributes, deleteObjectAttributes,
 					 nalg, rev116,
 					 policyFilename);

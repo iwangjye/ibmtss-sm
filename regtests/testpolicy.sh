@@ -420,7 +420,7 @@ echo ""
 # 02000001 hmac session
 
 echo "Change platform hierarchy auth"
-${PREFIX}hierarchychangeauth -hi p -pwdn ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwdn ppp > run.out
 checkSuccess $?
 
 echo "Create a signing key under the primary key - policy secret using platform auth"
@@ -464,7 +464,7 @@ ${PREFIX}startauthsession -se p > run.out
 checkSuccess $?
 
 echo "Policy ticket"
-${PREFIX}policyticket -ha 03000000 -to to.bin -hi p -tk tkt.bin > run.out
+${PREFIX}policyticket -ha 03000000 -to to.bin -hi o -tk tkt.bin > run.out
 checkSuccess $?
 
 echo "Sign a digest - policy ticket"
@@ -488,7 +488,7 @@ ${PREFIX}sign -hk 80000001 -if msg.bin -os sig.bin -se0 03000000 0 > run.out
 checkSuccess $?
 
 echo "Change platform hierarchy auth back to null"
-${PREFIX}hierarchychangeauth -hi p -pwda ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwda ppp > run.out
 checkSuccess $?
 
 echo "Flush the signing key"
@@ -509,7 +509,7 @@ echo ""
 # 37 9e ab 16 c1 f8 0d 9f f9 6d 90 41 4e 2f c6 b3 
 
 echo "NV Define Space 0100000"
-${PREFIX}nvdefinespace -hi p -ha 01000000 -pwdn nnn -sz 16 -pwdn nnn > run.out
+${PREFIX}nvdefinespace -hi o -ha 01000000 -pwdn nnn -sz 16 -pwdn nnn > run.out
 checkSuccess $?
 
 echo "Create a signing key under the primary key - policy secret NV auth"
@@ -541,7 +541,7 @@ ${PREFIX}flushcontext -ha 80000001 > run.out
 checkSuccess $?
 
 echo "NV Undefine Space 0100000"
-${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
+${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
 checkSuccess $?
 
 
@@ -642,7 +642,7 @@ ${PREFIX}create -hp 80000000 -si -kt f -kt p -opr tmppriv.bin -opu tmppub.bin -p
 checkSuccess $?
 
 echo "Load external just the public part of PEM authorizing key"
-${PREFIX}loadexternal -hi p -halg sha1 -nalg sha1 -ipem policies/rsapubkey.pem > run.out
+${PREFIX}loadexternal -hi o -halg sha1 -nalg sha1 -ipem policies/rsapubkey.pem > run.out
 checkSuccess $?
 
 echo "Load the signing key under the primary key"
@@ -703,27 +703,27 @@ echo "Set Primary Policy"
 echo ""
 
 echo "Platform policy empty"
-${PREFIX}setprimarypolicy -hi p > run.out
+${PREFIX}setprimarypolicy -hi o > run.out
 checkSuccess $?
 
 echo "Platform policy empty, bad password"
-${PREFIX}setprimarypolicy -hi p -pwda ppp > run.out
+${PREFIX}setprimarypolicy -hi o -pwda ppp > run.out
 checkFailure $?
 
 echo "Set platform hierarchy auth"
-${PREFIX}hierarchychangeauth -hi p -pwdn ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwdn ppp > run.out
 checkSuccess $?
 
 echo "Platform policy empty, bad password"
-${PREFIX}setprimarypolicy -hi p > run.out
+${PREFIX}setprimarypolicy -hi o > run.out
 checkFailure $?
 
 echo "Platform policy empty"
-${PREFIX}setprimarypolicy -hi p -pwda ppp > run.out
+${PREFIX}setprimarypolicy -hi o -pwda ppp > run.out
 checkSuccess $?
 
 echo "Platform policy to policy secret platform auth"
-${PREFIX}setprimarypolicy -hi p -pwda ppp -halg sha256 -pol policies/policysecretp.bin > run.out
+${PREFIX}setprimarypolicy -hi o -pwda ppp -halg sha256 -pol policies/policysecretp.bin > run.out
 checkSuccess $?
 
 echo "Start a policy session"
@@ -735,7 +735,7 @@ ${PREFIX}policysecret -ha 4000000c -hs 03000000 -pwde ppp > run.out
 checkSuccess $?
 
 echo "Change platform hierarchy auth to null with policy secret"
-${PREFIX}hierarchychangeauth -hi p -se0 03000000 0 > run.out
+${PREFIX}hierarchychangeauth -hi o -se0 03000000 0 > run.out
 checkSuccess $?
 
 echo ""
@@ -918,7 +918,7 @@ echo "Policy NV, NV index authorizing"
 echo ""
 
 echo "Define a setbits index, authorizing index"
-${PREFIX}nvdefinespace -hi p -nalg sha1 -ha 01000000 -pwdn nnn -ty b > run.out
+${PREFIX}nvdefinespace -hi o -nalg sha1 -ha 01000000 -pwdn nnn -ty b > run.out
 checkSuccess $?
 
 echo "NV Read public, get Name, not written"
@@ -938,7 +938,7 @@ ${PREFIX}nvread -ha 01000000 -pwdn nnn -sz 8 > run.out
 checkSuccess $?
 
 echo "Define an ordinary index, authorized index, policyNV"
-${PREFIX}nvdefinespace -hi p -nalg sha1 -ha 01000001 -pwdn nnn -sz 2 -ty o -pol policies/policynvnv.bin > run.out
+${PREFIX}nvdefinespace -hi o -nalg sha1 -ha 01000001 -pwdn nnn -sz 2 -ty o -pol policies/policynvnv.bin > run.out
 checkSuccess $?
 
 echo "NV Read public, get Name, not written"
@@ -990,11 +990,11 @@ ${PREFIX}policygetdigest -ha 03000000 > run.out
 checkSuccess $?
 
 echo "NV Undefine authorizing index"
-${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
+${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
 checkSuccess $?
 
 echo "NV Undefine authorized index"
-${PREFIX}nvundefinespace -hi p -ha 01000001 > run.out 
+${PREFIX}nvundefinespace -hi o -ha 01000001 > run.out 
 checkSuccess $?
 
 echo "Flush policy session"
@@ -1006,7 +1006,7 @@ echo "Policy NV Written"
 echo ""
 
 echo "Define an ordinary index, authorized index, policyNV"
-${PREFIX}nvdefinespace -hi p -nalg sha1 -ha 01000000 -pwdn nnn -sz 2 -ty o -pol policies/policywrittenset.bin > run.out  
+${PREFIX}nvdefinespace -hi o -nalg sha1 -ha 01000000 -pwdn nnn -sz 2 -ty o -pol policies/policywrittenset.bin > run.out  
 checkSuccess $?
 
 echo "NV Read public, get Name, not written"
@@ -1086,7 +1086,7 @@ ${PREFIX}flushcontext -ha 03000000 > run.out
 checkSuccess $?
 
 echo "NV Undefine authorizing index"
-${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
+${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
 checkSuccess $?
 
 # test using clockrateadjust
@@ -1104,11 +1104,11 @@ echo "Policy cpHash"
 echo ""
 
 echo "Set the platform policy to policy cpHash"
-${PREFIX}setprimarypolicy -hi p -pol policies/policycphash.bin -halg sha1 > run.out
+${PREFIX}setprimarypolicy -hi o -pol policies/policycphash.bin -halg sha1 > run.out
 checkSuccess $?
 
 echo "Clockrate adjust using wrong password - should fail"
-${PREFIX}clockrateadjust -hi p -pwdp ppp -adj 0 > run.out 
+${PREFIX}clockrateadjust -hi o -pwdp ppp -adj 0 > run.out 
 checkFailure $?
 
 echo "Start policy session"
@@ -1116,7 +1116,7 @@ ${PREFIX}startauthsession -se p -halg sha1 > run.out
 checkSuccess $?
 
 echo "Clockrate adjust, policy not satisfied - should fail"
-${PREFIX}clockrateadjust -hi p -pwdp ppp -adj 0 -se0 03000000 1 > run.out
+${PREFIX}clockrateadjust -hi o -pwdp ppp -adj 0 -se0 03000000 1 > run.out
 checkFailure $?
 
 echo "Policy cpHash, satisfy policy"
@@ -1128,15 +1128,15 @@ ${PREFIX}policygetdigest -ha 03000000 > run.out
 checkSuccess $?
 
 echo "Clockrate adjust, policy satisfied but bad command params - should fail"
-${PREFIX}clockrateadjust -hi p -pwdp ppp -adj 1 -se0 03000000 1 > run.out 
+${PREFIX}clockrateadjust -hi o -pwdp ppp -adj 1 -se0 03000000 1 > run.out 
 checkFailure $?
 
 echo "Clockrate adjust, policy satisfied"
-${PREFIX}clockrateadjust -hi p -pwdp ppp -adj 0 -se0 03000000 1 > run.out 
+${PREFIX}clockrateadjust -hi o -pwdp ppp -adj 0 -se0 03000000 1 > run.out 
 checkSuccess $?
 
 echo "Clear the platform policy"
-${PREFIX}setprimarypolicy -hi p > run.out 
+${PREFIX}setprimarypolicy -hi o > run.out 
 checkSuccess $?
 
 echo "Flush policy session"
@@ -1165,11 +1165,11 @@ echo "Policy Counter Timer"
 echo ""
 
 echo "Set the platform policy to policy "
-${PREFIX}setprimarypolicy -hi p -pol policies/policycountertimer.bin -halg sha1 > run.out
+${PREFIX}setprimarypolicy -hi o -pol policies/policycountertimer.bin -halg sha1 > run.out
 checkSuccess $?
 
 echo "Clockrate adjust using wrong password - should fail"
-${PREFIX}clockrateadjust -hi p -pwdp ppp -adj 0 > run.out
+${PREFIX}clockrateadjust -hi o -pwdp ppp -adj 0 > run.out
 checkFailure $?
 
 echo "Start policy session"
@@ -1177,7 +1177,7 @@ ${PREFIX}startauthsession -se p -halg sha1 > run.out
 checkSuccess $?
 
 echo "Clockrate adjust, policy not satisfied - should fail"
-${PREFIX}clockrateadjust -hi p -adj 0 -se0 03000000 1 > run.out
+${PREFIX}clockrateadjust -hi o -adj 0 -se0 03000000 1 > run.out
 checkFailure $?
 
 echo "Policy counter timer, zero operandB, op EQ satisfy policy - should fail"
@@ -1193,11 +1193,11 @@ ${PREFIX}policygetdigest -ha 03000000 > run.out
 checkSuccess $?
 
 echo "Clockrate adjust, policy satisfied"
-${PREFIX}clockrateadjust -hi p -adj 0 -se0 03000000 1 > run.out 
+${PREFIX}clockrateadjust -hi o -adj 0 -se0 03000000 1 > run.out 
 checkSuccess $?
 
 echo "Clear the platform policy"
-${PREFIX}setprimarypolicy -hi p > run.out 
+${PREFIX}setprimarypolicy -hi o > run.out 
 checkSuccess $?
 
 echo "Flush policy session"

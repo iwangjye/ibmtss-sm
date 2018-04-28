@@ -63,15 +63,15 @@ do
     do
 
 	echo "Change platform hierarchy auth ${AUTH[i]} ${NEWAUTH[i]} ${SESS}"
-	${PREFIX}hierarchychangeauth -hi p ${AUTH[i]} ${NEWAUTH[i]} ${SESS} > run.out
+	${PREFIX}hierarchychangeauth -hi o ${AUTH[i]} ${NEWAUTH[i]} ${SESS} > run.out
 	checkSuccess $?
 
 	echo "Create a primary storage key - should fail"
-	${PREFIX}createprimary -hi p -pwdk 111 > run.out
+	${PREFIX}createprimary -hi o -pwdk 111 > run.out
 	checkFailure $?
 
 	echo "Create a primary storage key ${CPAUTH[i]}"
-	${PREFIX}createprimary -hi p -pwdk 111 ${CPAUTH[i]} > run.out
+	${PREFIX}createprimary -hi o -pwdk 111 ${CPAUTH[i]} > run.out
 	checkSuccess $?
 
 	echo "Flush the primary key"
@@ -79,7 +79,7 @@ do
 	checkSuccess $?
 
 	echo "Change platform hierarchy auth back to null ${AUTH[i+1]} ${NEWAUTH[i+1]} ${SESS}"
-	${PREFIX}hierarchychangeauth -hi p ${AUTH[i+1]} ${NEWAUTH[i+1]} ${SESS} > run.out
+	${PREFIX}hierarchychangeauth -hi o ${AUTH[i+1]} ${NEWAUTH[i+1]} ${SESS} > run.out
 	checkSuccess $?
 
 	echo "Create a primary storage key"
@@ -102,15 +102,15 @@ echo "Hierarchy Change Auth with bind"
 echo ""
 
 echo "Change platform hierarchy auth"
-${PREFIX}hierarchychangeauth -hi p -pwdn ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwdn ppp > run.out
 checkSuccess $?
 
 echo "Create a primary storage key - should fail"
-${PREFIX}createprimary -hi p -pwdk 111 > run.out
+${PREFIX}createprimary -hi o -pwdk 111 > run.out
 checkFailure $?
 
 echo "Create a primary storage key"
-${PREFIX}createprimary -hi p -pwdk 111 -pwdp ppp > run.out
+${PREFIX}createprimary -hi o -pwdk 111 -pwdp ppp > run.out
 checkSuccess $?
 
 echo "Flush the primary key"
@@ -122,7 +122,7 @@ ${PREFIX}startauthsession -se h -bi 4000000c -pwdb ppp > run.out
 checkSuccess $?
 
 echo "Change platform hierarchy auth back to null"
-${PREFIX}hierarchychangeauth -hi p -pwda ppp -se0 02000000 1 > run.out
+${PREFIX}hierarchychangeauth -hi o -pwda ppp -se0 02000000 1 > run.out
 checkSuccess $?
 
 echo "Create a primary storage key"
@@ -142,19 +142,19 @@ echo "Hierarchy Control"
 echo ""
 
 echo "Enable the owner hierarchy"
-${PREFIX}hierarchycontrol -hi p -he o > run.out
+${PREFIX}hierarchycontrol -hi o -he o > run.out
 checkSuccess $?
 
 echo "Change the platform hierarchy password"
-${PREFIX}hierarchychangeauth -hi p -pwdn ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwdn ppp > run.out
 checkSuccess $?
 
 echo "Enable the owner hierarchy - no platform hierarchy password, should fail"
-${PREFIX}hierarchycontrol -hi p -he o > run.out
+${PREFIX}hierarchycontrol -hi o -he o > run.out
 checkFailure $?
 
 echo "Enable the owner hierarchy using platform hierarchy password"
-${PREFIX}hierarchycontrol -hi p -he o -pwda ppp > run.out
+${PREFIX}hierarchycontrol -hi o -he o -pwda ppp > run.out
 checkSuccess $?
 
 echo "Create a primary key in the owner hierarchy - bad password, should fail"
@@ -166,7 +166,7 @@ ${PREFIX}createprimary -hi o > run.out
 checkSuccess $?
 
 echo "Disable the owner hierarchy using platform hierarchy password"
-${PREFIX}hierarchycontrol -hi p -he o -pwda ppp -state 0 > run.out
+${PREFIX}hierarchycontrol -hi o -he o -pwda ppp -state 0 > run.out
 checkSuccess $?
 
 echo "Create a primary key in the owner hierarchy, disabled, should fail"
@@ -174,7 +174,7 @@ ${PREFIX}createprimary -hi o > run.out
 checkFailure $?
 
 echo "Enable the owner hierarchy using platform hierarchy password"
-${PREFIX}hierarchycontrol -hi p -he o -pwda ppp -state 1 > run.out
+${PREFIX}hierarchycontrol -hi o -he o -pwda ppp -state 1 > run.out
 checkSuccess $?
 
 echo "Create a primary key in the owner hierarchy"
@@ -182,7 +182,7 @@ ${PREFIX}createprimary -hi o > run.out
 checkSuccess $?
 
 echo "Remove the platform hierarchy password"
-${PREFIX}hierarchychangeauth -hi p -pwda ppp > run.out
+${PREFIX}hierarchychangeauth -hi o -pwda ppp > run.out
 checkSuccess $?
 
 echo "Flush the primary key in the owner hierarchy"
@@ -206,19 +206,19 @@ ${PREFIX}readpublic -ho 80000001 > run.out
 checkSuccess $?
 
 echo "ClearControl disable"
-${PREFIX}clearcontrol -hi p -state 1 > run.out
+${PREFIX}clearcontrol -hi o -state 1 > run.out
 checkSuccess $?
 
 echo "Clear - should fail"
-${PREFIX}clear -hi p > run.out
+${PREFIX}clear -hi o > run.out
 checkFailure $?
 
 echo "ClearControl enable"
-${PREFIX}clearcontrol -hi p -state 0 > run.out
+${PREFIX}clearcontrol -hi o -state 0 > run.out
 checkSuccess $?
 
 echo "Clear"
-${PREFIX}clear -hi p > run.out
+${PREFIX}clear -hi o > run.out
 checkSuccess $?
 
 echo "Read the public part - should fail"

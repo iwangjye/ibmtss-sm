@@ -134,7 +134,7 @@ ${PREFIX}load -hp 80000000 -ipr signpriv.bin -ipu signpub.bin -pwdp pps > run.ou
 checkFailure $?
 
 echo "Create a platform primary storage key"
-${PREFIX}createprimary -hi p -pwdk pps > run.out
+${PREFIX}createprimary -hi o -pwdk pps > run.out
 checkSuccess $?
 
 echo "Signing Key Self Certify - should fail, signing key missing"
@@ -230,11 +230,11 @@ ${PREFIX}nvread -ha 01000000 -pwdn nnn -sz 16 > run.out
 checkSuccess $?
 
 echo "NV Undefine Space"
-${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
+${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
 checkSuccess $?
 
 echo "Recreate a platform primary storage key"
-${PREFIX}createprimary -hi p -pwdk pps > run.out
+${PREFIX}createprimary -hi o -pwdk pps > run.out
 checkSuccess $?
 
 echo ""
@@ -266,7 +266,7 @@ ${PREFIX}contextload -if tmp.bin > run.out
 checkFailure $?
 
 echo "Recreate a platform primary storage key"
-${PREFIX}createprimary -hi p -pwdk pps > run.out
+${PREFIX}createprimary -hi o -pwdk pps > run.out
 checkSuccess $?
 
 # cleanup 

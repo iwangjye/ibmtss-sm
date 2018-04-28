@@ -138,7 +138,7 @@ do
     do
 
 	echo "Hash ${HALG} in one call, data from file"
-	${PREFIX}hash -hi p -halg ${HALG} -if policies/aaa -oh tmp.bin > run.out
+	${PREFIX}hash -hi o -halg ${HALG} -if policies/aaa -oh tmp.bin > run.out
 	checkSuccess $?
 
 	echo "Verify the hash ${HALG}"
@@ -146,7 +146,7 @@ do
 	checkSuccess $?
 
 	echo "Hash ${HALG} in one call, data on command line"
-	${PREFIX}hash -hi p -halg ${HALG} -ic aaa -oh tmp.bin > run.out
+	${PREFIX}hash -hi o -halg ${HALG} -ic aaa -oh tmp.bin > run.out
 	checkSuccess $?
 
 	echo "Verify the hash ${HALG}"
@@ -162,7 +162,7 @@ do
 	checkSuccess $?
 
 	echo "Hash ${HALG} sequence complete ${SESS}"
-	${PREFIX}sequencecomplete -hi p -hs 80000001 -pwds aaa -of tmp.bin ${SESS} > run.out
+	${PREFIX}sequencecomplete -hi o -hs 80000001 -pwds aaa -of tmp.bin ${SESS} > run.out
 	checkSuccess $?
 
 	echo "Verify the ${HALG} hash"
@@ -188,7 +188,7 @@ ${PREFIX}load -hp 80000000 -ipr signrpriv.bin -ipu signrpub.bin -pwdp pps > run.
 checkSuccess $?
 
 echo "Hash and create ticket"
-${PREFIX}hash -hi p -halg sha256 -if msg.bin -oh sig.bin -tk tkt.bin > run.out
+${PREFIX}hash -hi o -halg sha256 -if msg.bin -oh sig.bin -tk tkt.bin > run.out
 checkSuccess $?
 
 echo "Sign a digest with a restricted signing key and no ticket - should fail"
@@ -200,7 +200,7 @@ ${PREFIX}sign -hk 80000001 -halg sha256 -if msg.bin -tk tkt.bin -os sig.bin -pwd
 checkSuccess $?
 
 echo "Hash and create null ticket, msg with TPM_GENERATED"
-${PREFIX}hash -hi p -halg sha256 -if policies/msgtpmgen.bin -oh sig.bin -tk tkt.bin > run.out
+${PREFIX}hash -hi o -halg sha256 -if policies/msgtpmgen.bin -oh sig.bin -tk tkt.bin > run.out
 checkSuccess $?
 
 echo "Sign a digest with a restricted signing key and ticket - should fail"
@@ -216,7 +216,7 @@ ${PREFIX}sequenceupdate -hs 80000002 -pwds aaa -if msg.bin > run.out
 checkSuccess $?
 
 echo "Hash sequence complete"
-${PREFIX}sequencecomplete -hi p -hs 80000002 -pwds aaa -of tmp.bin -tk tkt.bin > run.out
+${PREFIX}sequencecomplete -hi o -hs 80000002 -pwds aaa -of tmp.bin -tk tkt.bin > run.out
 checkSuccess $?
 
 echo "Sign a digest with a restricted signing key and no ticket - should fail"
@@ -236,7 +236,7 @@ ${PREFIX}sequenceupdate -hs 80000002 -pwds aaa -if policies/msgtpmgen.bin > run.
 checkSuccess $?
 
 echo "Hash sequence complete"
-${PREFIX}sequencecomplete -hi p -hs 80000002 -pwds aaa -of tmp.bin -tk tkt.bin > run.out
+${PREFIX}sequencecomplete -hi o -hs 80000002 -pwds aaa -of tmp.bin -tk tkt.bin > run.out
 checkSuccess $?
 
 echo "Sign a digest with a restricted signing key and ticket - should fail"

@@ -97,11 +97,11 @@ echo "NV PIN Pass Index"
 echo ""
 
 echo "Set phEnableNV"
-${PREFIX}hierarchycontrol -hi p -he n > run.out
+${PREFIX}hierarchycontrol -hi o -he n > run.out
 checkSuccess $?
 
 echo "NV Define Space, 01000000, pin pass, read/write stclear, policy secret using platform auth"
-${PREFIX}nvdefinespace -ha 01000000 -hi p -pwdn nnn -ty p +at wst +at rst -hia p -pol policies/policysecretp.bin > run.out
+${PREFIX}nvdefinespace -ha 01000000 -hi o -pwdn nnn -ty p +at wst +at rst -hia p -pol policies/policysecretp.bin > run.out
 checkSuccess $?
 
 echo "Policy Secret with PWAP session, not written - should fail"
@@ -289,7 +289,7 @@ ${PREFIX}nvwrite -ha 01000000 -hia p -id 0 1 > run.out
 checkSuccess $?
 
 echo "Clear phEnableNV"
-${PREFIX}hierarchycontrol -hi p -he n -state 0 > run.out
+${PREFIX}hierarchycontrol -hi o -he n -state 0 > run.out
 checkSuccess $?
 
 echo "Policy Secret with PWAP session, phEnableNV disabled - should fail"
@@ -297,7 +297,7 @@ ${PREFIX}policysecret -ha 01000000 -hs 03000000 -pwde nnn > run.out
 checkFailure $?
 
 echo "Set phEnableNV"
-${PREFIX}hierarchycontrol -hi p -he n -state 1 > run.out
+${PREFIX}hierarchycontrol -hi o -he n -state 1 > run.out
 checkSuccess $?
 
 echo ""
@@ -305,7 +305,7 @@ echo "Cleanup NV PIN Pass"
 echo ""
 
 echo "NV Undefine Space, 01000000 "
-${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
+${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
 checkSuccess $?
 
 echo "Flush the policy session, 03000000 "
@@ -317,7 +317,7 @@ echo "NV PIN Fail Index"
 echo ""
 
 echo "NV Define Space, 01000000, pin fail, read/write stclear, policy secret using platform auth"
-${PREFIX}nvdefinespace -ha 01000000 -hi p -pwdn nnn -ty f +at wst +at rst -hia p -pol policies/policysecretp.bin > run.out
+${PREFIX}nvdefinespace -ha 01000000 -hi o -pwdn nnn -ty f +at wst +at rst -hia p -pol policies/policysecretp.bin > run.out
 checkSuccess $?
 
 echo "Policy Secret with PWAP session, not written - should fail"
@@ -493,7 +493,7 @@ ${PREFIX}nvwrite -ha 01000000 -hia p -id 0 1 > run.out
 checkSuccess $?
 
 echo "Clear phEnableNV"
-${PREFIX}hierarchycontrol -hi p -he n -state 0 > run.out
+${PREFIX}hierarchycontrol -hi o -he n -state 0 > run.out
 checkSuccess $?
 
 echo "Policy Secret with PWAP session, phEnableNV disabled - should fail"
@@ -501,7 +501,7 @@ ${PREFIX}policysecret -ha 01000000 -hs 03000000 -pwde nnn > run.out
 checkFailure $?
 
 echo "Set phEnableNV"
-${PREFIX}hierarchycontrol -hi p -he n -state 1 > run.out
+${PREFIX}hierarchycontrol -hi o -he n -state 1 > run.out
 checkSuccess $?
 
 echo ""
@@ -509,7 +509,7 @@ echo "Cleanup"
 echo ""
 
 echo "NV Undefine Space 01000000"
-${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out 
+${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out 
 checkSuccess $?
 
 echo "NV Undefine Space 01000001"
@@ -525,7 +525,7 @@ ${PREFIX}flushcontext -ha 03000000 > run.out > run.out
 checkSuccess $?
 
 echo "Recreate the primary key"
-${PREFIX}createprimary -hi p -pwdk pps > run.out
+${PREFIX}createprimary -hi o -pwdk pps > run.out
 checkSuccess $?
 
 echo ""
@@ -533,23 +533,23 @@ echo "NV PIN define space"
 echo ""
 
 echo "NV Define Space, 01000000, no write auth - should fail"
-${PREFIX}nvdefinespace -ha 01000000 -hi p -pwdn nnn -ty p -hia p -at ppw > run.out
+${PREFIX}nvdefinespace -ha 01000000 -hi o -pwdn nnn -ty p -hia p -at ppw > run.out
 checkFailure $?
 
 echo "NV Define Space, 01000000, no read auth - should fail"
-${PREFIX}nvdefinespace -ha 01000000 -hi p -pwdn nnn -ty p -hia p -at ppr -at ar> run.out
+${PREFIX}nvdefinespace -ha 01000000 -hi o -pwdn nnn -ty p -hia p -at ppr -at ar> run.out
 checkFailure $?
 
 echo "NV Define Space, 01000000, PIN Pass, auth write - should fail"
-${PREFIX}nvdefinespace -ha 01000000 -hi p -pwdn nnn -ty p -hia p +at aw > run.out
+${PREFIX}nvdefinespace -ha 01000000 -hi o -pwdn nnn -ty p -hia p +at aw > run.out
 checkFailure $?
 
 echo "NV Define Space, 01000000, PIN Fail, auth write - should fail"
-${PREFIX}nvdefinespace -ha 01000000 -hi p -pwdn nnn -ty f -hia p +at aw > run.out
+${PREFIX}nvdefinespace -ha 01000000 -hi o -pwdn nnn -ty f -hia p +at aw > run.out
 checkFailure $?
 
 echo "NV Define Space, 01000000, PIN Fail, noDA clear - should fail"
-${PREFIX}nvdefinespace -ha 01000000 -hi p -pwdn nnn -ty f -hia p -at da > run.out
+${PREFIX}nvdefinespace -ha 01000000 -hi o -pwdn nnn -ty f -hia p -at da > run.out
 checkFailure $?
 
 # ${PREFIX}getcapability  -cap 1 -pr 80000000

@@ -185,6 +185,9 @@ int main(int argc, char *argv[])
 		else if (strcmp(argv[i],"nistp384") == 0) {
 		    curveID = TPM_ECC_NIST_P384;
 		}
+		else if (strcmp(argv[i],"sm2p256") == 0) {
+		    curveID = TPM_ECC_SM2_P256;
+		}
 		else {
 		    printf("Bad parameter %s for -ecc\n", argv[i]);
 		    printUsage();
@@ -235,6 +238,9 @@ int main(int argc, char *argv[])
 		else if (strcmp(argv[i],"sha256") == 0) {
 		    halg = TPM_ALG_SHA256;
 		}
+		else if (strcmp(argv[i],"sm3") == 0) {
+		    halg = TPM_ALG_SM3_256;
+		}
 		else if (strcmp(argv[i],"sha384") == 0) {
 		    halg = TPM_ALG_SHA384;
 		}
@@ -256,6 +262,9 @@ int main(int argc, char *argv[])
 		}
 		else if (strcmp(argv[i],"sha256") == 0) {
 		    nalg = TPM_ALG_SHA256;
+		}
+		else if (strcmp(argv[i],"sm3") == 0) {
+		    halg = TPM_ALG_SM3_256;
 		}
 		else if (strcmp(argv[i],"sha384") == 0) {
 		    nalg = TPM_ALG_SHA384;

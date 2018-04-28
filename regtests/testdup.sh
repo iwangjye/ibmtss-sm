@@ -163,7 +163,7 @@ echo "Duplicate Primary Key"
 echo ""
 
 echo "Create a platform primary signing key K2 80000001"
-${PREFIX}createprimary -hi p -si -kt nf -kt np -pol policies/policyccduplicate.bin -opu tmppub.bin > run.out
+${PREFIX}createprimary -hi o -si -kt nf -kt np -pol policies/policyccduplicate.bin -opu tmppub.bin > run.out
 checkSuccess $?
 
 echo "Sign a digest"
@@ -301,7 +301,7 @@ ${PREFIX}create -hp 80000000 -st -kt f -kt p -opr tmpk2priv.bin -opu tmpk2pub.bi
 checkSuccess $?
 
 echo "Load the storage key K1 80000001 public key "
-${PREFIX}loadexternal -hi p -ipu storepub.bin > run.out
+${PREFIX}loadexternal -hi o -ipu storepub.bin > run.out
 checkSuccess $?
 
 echo "Create a signing key O1 with policy"
@@ -350,7 +350,7 @@ ${PREFIX}load -hp 80000000 -ipr storepriv.bin -ipu storepub.bin -pwdp pps > run.
 checkSuccess $?
 
 echo "Load storage key K2 80000002 public key"
-${PREFIX}loadexternal -hi p -ipu tmpk2pub.bin > run.out
+${PREFIX}loadexternal -hi o -ipu tmpk2pub.bin > run.out
 checkSuccess $?
 
 echo "Rewrap O1 from K1 80000001 to K2 80000002 "

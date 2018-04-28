@@ -112,6 +112,11 @@ static TPM_RC TSS_Hash_GetMd(const EVP_MD **md,
 	    *md = EVP_get_digestbyname("sha256");
 	    break;
 #endif
+#ifdef TPM_ALG_SM3_256	
+	  case TPM_ALG_SM3_256:
+	    *md = EVP_get_digestbyname("sm3");
+	    break;
+#endif
 #ifdef TPM_ALG_SHA384
 	  case 	TPM_ALG_SHA384:
 	    *md = EVP_get_digestbyname("sha384");

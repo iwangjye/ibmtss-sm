@@ -230,7 +230,9 @@ main ()
 	# example for running scripts with encrypted sessions, see TPM_ENCRYPT_SESSIONS above
 	# getrandom must wait until after inittpm.sh (powerup and startup)
 	TPM_SESSION_ENCKEY=`${PREFIX}getrandom -by 16 -ns`
+    echo "abc"
 	./regtests/initkeys.sh
+    echo "abc"
 	RC=$?
 	if [ $RC -ne 0 ]; then
 	    exit 255

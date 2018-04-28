@@ -184,7 +184,7 @@ echo "Policy Template with TPM2_Create"
 echo ""
 
 echo "Create a primary storage key policy template, 80000001"
-${PREFIX}createprimary -hi p -pol policies/policytemplatehash.bin > run.out
+${PREFIX}createprimary -hi o -pol policies/policytemplatehash.bin > run.out
 checkSuccess $?
 
 echo "Start a policy session 03000000"
@@ -236,7 +236,7 @@ echo "Policy Template with TPM2_CreatePrimary"
 echo ""
 
 echo "Set primary policy for platform hierarchy"
-${PREFIX}setprimarypolicy -hi p -halg sha256 -pol policies/policytemplatehash.bin > run.out
+${PREFIX}setprimarypolicy -hi o -halg sha256 -pol policies/policytemplatehash.bin > run.out
 checkSuccess $?
 
 echo "Policy restart, set back to zero"
@@ -252,7 +252,7 @@ ${PREFIX}policygetdigest -ha 03000000 > run.out
 checkSuccess $?
 
 echo "Create loaded primary signing key policy template, 80000001"
-${PREFIX}createprimary -si -hi p -se0 03000000 0 > run.out
+${PREFIX}createprimary -si -hi o -se0 03000000 0 > run.out
 checkSuccess $?
 
 echo "Flush the primary key 80000001"

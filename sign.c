@@ -127,6 +127,9 @@ int main(int argc, char *argv[])
 		else if (strcmp(argv[i],"sha384") == 0) {
 		    halg = TPM_ALG_SHA384;
 		}
+		else if (strcmp(argv[i],"sm3") == 0) {
+		    halg = TPM_ALG_SM3_256;
+		}
 		else {
 		    printf("Bad parameter for -halg\n");
 		    printUsage();
@@ -142,6 +145,9 @@ int main(int argc, char *argv[])
 	}
 	else if (strcmp(argv[i], "-ecc") == 0) {
 	    scheme = TPM_ALG_ECDSA;
+	}
+	else if (strcmp(argv[i], "-sm2") == 0) {
+	    scheme = TPM_ALG_SM2;
 	}
 	else if (strcmp(argv[i], "-ecdaa") == 0) {
 	    scheme = TPM_ALG_ECDAA;
@@ -337,8 +343,11 @@ int main(int argc, char *argv[])
 					(UnmarshalFunction_t)UINT16_Unmarshal,
 					counterFilename);
 	}
-	else {	/* scheme TPM_ALG_ECDSA */
+	else if (scheme == TPM_ALG_ECDSA){	/* scheme TPM_ALG_ECDSA */
 	    in.inScheme.details.ecdsa.hashAlg = halg;
+	}
+	else if (scheme == TPM_ALG_SM2){	/* scheme TPM_ALG_ECDSA */
+	    in.inScheme.details.sm2.hashAlg = halg;
 	}
     }
     if (rc == 0) {
@@ -448,6 +457,7 @@ static void printUsage(void)
     printf("\t\t\trsassa\n");
     printf("\t\t\trsapss\n");
     printf("\t[-ecc (ECDSA scheme)]\n");
+    printf("\t[-sm2 (SM2 scheme)]\n");
     printf("\t[-ecdaa [ECDAA scheme)]\n");
     printf("\t\tVerify only supported for RSA now\n");
     printf("\t-if input message to hash and sign\n");

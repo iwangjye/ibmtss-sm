@@ -46,7 +46,7 @@ echo "Primary key - CreatePrimary"
 echo ""
 
 echo "Create a primary storage key"
-${PREFIX}createprimary -hi p -pwdk pps > run.out
+${PREFIX}createprimary -hi o -pwdk pps > run.out
 checkSuccess $?
 
 echo "Read the public part"
@@ -80,7 +80,7 @@ echo ""
 # no unique 
 
 echo "Create a primary storage key with no unique field"
-${PREFIX}createprimary -hi p -pwdk pps > run.out
+${PREFIX}createprimary -hi o -pwdk pps > run.out
 checkSuccess $?
 
 echo "Create a storage key under the primary key"
@@ -103,7 +103,7 @@ checkSuccess $?
 
 echo "Create a primary storage key with empty unique field"
 touch empty.bin
-${PREFIX}createprimary -hi p -pwdk pps -iu empty.bin > run.out
+${PREFIX}createprimary -hi o -pwdk pps -iu empty.bin > run.out
 checkSuccess $?
 
 echo "Load the original storage key under the primary key with empty unique field"
@@ -126,7 +126,7 @@ echo ""
 
 echo "Create a primary storage key with unique field"
 touch empty.bin
-${PREFIX}createprimary -hi p -pwdk pps -iu policies/aaa > run.out
+${PREFIX}createprimary -hi o -pwdk pps -iu policies/aaa > run.out
 checkSuccess $?
 
 echo "Load the original storage key under the primary key - should fail"
@@ -152,7 +152,7 @@ checkSuccess $?
 # same unique
 
 echo "Create a primary storage key with same unique field"
-${PREFIX}createprimary -hi p -pwdk pps -iu policies/aaa > run.out
+${PREFIX}createprimary -hi o -pwdk pps -iu policies/aaa > run.out
 checkSuccess $?
 
 echo "Load the previous storage key under the primary key"

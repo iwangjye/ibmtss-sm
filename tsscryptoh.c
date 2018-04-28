@@ -300,10 +300,10 @@ uint16_t TSS_GetDigestSize(TPM_ALG_ID hashAlg)
       case TPM_ALG_SHA512:
 	size = SHA512_DIGEST_SIZE;
 	break;
+#endif
       case TPM_ALG_SM3_256:
 	size = SM3_256_DIGEST_SIZE;
 	break;
-#endif
       default:
 	size = 0;
     }

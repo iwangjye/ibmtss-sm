@@ -54,6 +54,7 @@
 #define TYPE_DP		10
 #define TYPE_DAA        11
 #define TYPE_DAAR       12
+#define TYPE_SM4		13
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,6 +70,12 @@ extern "C" {
 			      TPMI_ALG_HASH halg,
 			      const char *policyFilename);
     TPM_RC symmetricCipherTemplate(TPMT_PUBLIC *publicArea,
+				   TPMA_OBJECT addObjectAttributes,
+				   TPMA_OBJECT deleteObjectAttributes,
+				   TPMI_ALG_HASH nalg,
+				   int rev116,
+				   const char *policyFilename);
+    TPM_RC symmetricCipherTemplateSM4(TPMT_PUBLIC *publicArea,
 				   TPMA_OBJECT addObjectAttributes,
 				   TPMA_OBJECT deleteObjectAttributes,
 				   TPMI_ALG_HASH nalg,

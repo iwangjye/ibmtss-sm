@@ -4226,6 +4226,19 @@ TSS_TPMI_AES_KEY_BITS_Marshal(const TPMI_AES_KEY_BITS *source, UINT16 *written, 
     return rc;
 }
 
+// 180309
+/* Table 124 - Definition of {AES} (TPM_KEY_BITS) TPMI_!ALG.S_KEY_BITS Type */
+
+TPM_RC
+TSS_TPMI_SM4_KEY_BITS_Marshal(const TPMI_AES_KEY_BITS *source, UINT16 *written, BYTE **buffer, INT32 *size)
+{
+    TPM_RC rc = 0;
+    if (rc == 0) {
+    rc = TSS_TPM_KEY_BITS_Marshal(source, written, buffer, size);
+    }
+    return rc;
+}
+
 /* Table 125 - Definition of TPMU_SYM_KEY_BITS Union */
 
 TPM_RC
@@ -5354,6 +5367,7 @@ TSS_TPMI_ALG_PUBLIC_Marshal(const TPMI_ALG_PUBLIC *source, UINT16 *written, BYTE
     return rc;
 }
 
+// 180310
 /* Table 177 - Definition of TPMU_PUBLIC_ID Union <IN/OUT, S> */
 
 TPM_RC
@@ -5388,6 +5402,13 @@ TSS_TPMU_PUBLIC_ID_Marshal(const TPMU_PUBLIC_ID *source, UINT16 *written, BYTE *
 	    rc = TSS_TPMS_ECC_POINT_Marshal(&source->ecc, written, buffer, size);
 	}
 	break;
+#endif
+#ifdef TPM_ALG_SM2
+      case TPM_ALG_SM2:
+    if (rc == 0) {
+        rc = TSS_TPMS_ECC_POINT_Marshal(&source->ecc, written, buffer, size);
+    }
+    break;
 #endif
       default:
 	rc = TPM_RC_SELECTOR;
@@ -5448,6 +5469,7 @@ TSS_TPMS_ECC_PARMS_Marshal(const TPMS_ECC_PARMS *source, UINT16 *written, BYTE *
     return rc;
 }
 
+// 180310
 /* Table 182 - Definition of TPMU_PUBLIC_PARMS Union <IN/OUT, S> */
 
 TPM_RC
@@ -5482,6 +5504,13 @@ TSS_TPMU_PUBLIC_PARMS_Marshal(const TPMU_PUBLIC_PARMS *source, UINT16 *written, 
 	    rc = TSS_TPMS_ECC_PARMS_Marshal(&source->eccDetail, written, buffer, size);
 	}
 	break;
+#endif
+#ifdef TPM_ALG_SM2
+      case TPM_ALG_SM2:
+    if (rc == 0) {
+        rc = TSS_TPMS_ECC_PARMS_Marshal(&source->eccDetail, written, buffer, size);
+    }
+    break;
 #endif
       default:
 	rc = TPM_RC_SELECTOR;
@@ -5617,6 +5646,13 @@ TSS_TPMU_SENSITIVE_COMPOSITE_Marshal(const TPMU_SENSITIVE_COMPOSITE *source, UIN
 	    rc = TSS_TPM2B_ECC_PARAMETER_Marshal(&source->ecc, written, buffer, size);
 	}
 	break;
+#endif
+#ifdef TPM_ALG_SM2
+      case TPM_ALG_SM2:
+    if (rc == 0) {
+        rc = TSS_TPM2B_ECC_PARAMETER_Marshal(&source->ecc, written, buffer, size);
+    }
+    break;
 #endif
 #ifdef TPM_ALG_KEYEDHASH
       case TPM_ALG_KEYEDHASH:

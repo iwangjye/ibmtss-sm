@@ -703,6 +703,9 @@ extern "C" {
     TSS_TPM2B_ATTEST_Marshal(const TPM2B_ATTEST *source, UINT16 *written, BYTE **buffer, INT32 *size);
     LIB_EXPORT TPM_RC
     TSS_TPMS_AUTH_COMMAND_Marshal(const TPMS_AUTH_COMMAND *source, UINT16 *written, BYTE **buffer, INT32 *size);
+    // 180309
+    LIB_EXPORT TPM_RC
+    TSS_TPMI_SM4_KEY_BITS_Marshal(const TPMI_SM4_KEY_BITS *source, UINT16 *written, BYTE **buffer, INT32 *size);
     LIB_EXPORT TPM_RC
     TSS_TPMI_AES_KEY_BITS_Marshal(const TPMI_AES_KEY_BITS *source, UINT16 *written, BYTE **buffer, INT32 *size);
     LIB_EXPORT TPM_RC

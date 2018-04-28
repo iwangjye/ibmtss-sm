@@ -114,6 +114,9 @@ int main(int argc, char *argv[])
 		else if (strcmp(argv[i],"sha384") == 0) {
 		    halg = TPM_ALG_SHA384;
 		}
+		else if (strcmp(argv[i],"sm3") == 0) {
+		    halg = TPM_ALG_SM3_256;
+		}
 		else {
 		    printf("Bad parameter for -halg\n");
 		    printUsage();

@@ -3443,6 +3443,9 @@ TPMI_ECC_CURVE_Unmarshal(TPMI_ECC_CURVE *target, BYTE **buffer, INT32 *size)
 #ifdef TPM_ECC_NIST_P384
 	  case TPM_ECC_NIST_P384:
 #endif
+#ifdef	TPM_ECC_SM2_P256
+	  case TPM_ECC_SM2_P256:
+#endif
 	    break;
 	  default:
 	    rc = TPM_RC_CURVE;
@@ -3718,6 +3721,9 @@ TPMI_ALG_PUBLIC_Unmarshal(TPMI_ALG_PUBLIC *target, BYTE **buffer, INT32 *size)
 #ifdef TPM_ALG_ECC
 	  case TPM_ALG_ECC:
 #endif
+#ifdef TPM_ALG_SM2
+	  case TPM_ALG_SM2:
+#endif
 #ifdef TPM_ALG_SYMCIPHER
 	  case TPM_ALG_SYMCIPHER:
 #endif
@@ -3754,6 +3760,11 @@ TPMU_PUBLIC_ID_Unmarshal(TPMU_PUBLIC_ID *target, BYTE **buffer, INT32 *size, UIN
 #endif
 #ifdef TPM_ALG_ECC
       case TPM_ALG_ECC:
+	rc = TPMS_ECC_POINT_Unmarshal(&target->ecc, buffer, size);
+	break;
+#endif
+#ifdef TPM_ALG_SM2
+      case TPM_ALG_SM2:
 	rc = TPMS_ECC_POINT_Unmarshal(&target->ecc, buffer, size);
 	break;
 #endif
@@ -3863,6 +3874,11 @@ TPMU_PUBLIC_PARMS_Unmarshal(TPMU_PUBLIC_PARMS *target, BYTE **buffer, INT32 *siz
 #endif
 #ifdef TPM_ALG_ECC
       case TPM_ALG_ECC:
+	rc = TPMS_ECC_PARMS_Unmarshal(&target->eccDetail, buffer, size);
+	break;
+#endif
+#ifdef TPM_ALG_SM2
+      case TPM_ALG_SM2:
 	rc = TPMS_ECC_PARMS_Unmarshal(&target->eccDetail, buffer, size);
 	break;
 #endif
@@ -3989,6 +4005,11 @@ TPMU_SENSITIVE_COMPOSITE_Unmarshal(TPMU_SENSITIVE_COMPOSITE *target, BYTE **buff
 #endif
 #ifdef TPM_ALG_ECC
       case TPM_ALG_ECC:
+	rc = TPM2B_ECC_PARAMETER_Unmarshal(&target->ecc, buffer, size);
+	break;
+#endif
+#ifdef TPM_ALG_SM2
+      case TPM_ALG_SM2:
 	rc = TPM2B_ECC_PARAMETER_Unmarshal(&target->ecc, buffer, size);
 	break;
 #endif

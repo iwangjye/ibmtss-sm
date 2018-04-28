@@ -45,19 +45,19 @@ echo -n "1234567890123456" > msg.bin
 touch zero.bin
 
 # try to undefine any NV index left over from a previous test.  Do not check for errors.
-${PREFIX}nvundefinespace -hi p -ha 01000000 > run.out
-${PREFIX}nvundefinespace -hi p -ha 01000000 -pwdp ppp > run.out
-${PREFIX}nvundefinespace -hi p -ha 01000001 > run.out
+${PREFIX}nvundefinespace -hi o -ha 01000000 > run.out
+${PREFIX}nvundefinespace -hi o -ha 01000000 -pwdp ppp > run.out
+${PREFIX}nvundefinespace -hi o -ha 01000001 > run.out
 ${PREFIX}nvundefinespace -hi o -ha 01000002 > run.out
 # same for persistent objects
-${PREFIX}evictcontrol -ho 81800000 -hp 81800000 -hi p > run.out
+${PREFIX}evictcontrol -ho 81800000 -hp 81800000 -hi o > run.out
 
 echo ""
 echo "Initialize Regression Test Keys"
 echo ""
 
 echo "Create a platform primary storage key"
-${PREFIX}createprimary -hi p -pwdk pps -tk pritk.bin -ch prich.bin > run.out
+${PREFIX}createprimary -hi o -pwdk pps -tk pritk.bin -ch prich.bin > run.out
 checkSuccess $?
 
 echo "Create an RSA storage key under the primary key"
